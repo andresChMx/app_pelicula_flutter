@@ -10,7 +10,8 @@ class CardSwiper extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
+      height: _screenSize.height * 0.5,
+      margin:EdgeInsets.only(top:50.0),
       child: Swiper(
         layout: SwiperLayout.STACK,
         itemWidth: _screenSize.width * 0.7,
@@ -21,7 +22,7 @@ class CardSwiper extends StatelessWidget {
             child: FadeInImage(
               image:NetworkImage(peliculas[index].getPostImg()),
               placeholder:AssetImage("assets/img/no-image.jpg"),
-              fit:BoxFit.cover
+              fit:BoxFit.cover 
             )
           );
         },

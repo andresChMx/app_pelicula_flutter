@@ -20,8 +20,14 @@ class HomePage extends StatelessWidget {
         ),
         body: Container(
             child: Stack(
+          alignment: AlignmentDirectional.topCenter,
           children: <Widget>[
             _swiperTarjetas(),
+            Column(
+              children: <Widget>[
+                _footer(context) //argumento debido al stack
+              ],
+            )
           ],
         )));
   }
@@ -36,11 +42,31 @@ class HomePage extends StatelessWidget {
           );
         } else {
           return Container(
-              height: 300.9, 
-              child: Center(child: CircularProgressIndicator()
-          ));
+              height: 300.9, child: Center(child: CircularProgressIndicator()));
         }
       },
+    );
+  }
+
+  Widget _footer(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+          top: (MediaQuery.of(context).size).height * 0.5 + 70.0),
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          Text("Populares", style: Theme.of(context).textTheme.subhead),
+          FutureBuilder(
+            future: peliculasProvider.getPopulares(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {                          //
+                snapshot.data.forEach((p) => print(p.title));  //  o  snapshot.data?.forEach((p) => print(p.title));
+              }                                                // 
+              return Container();
+            },
+          ),
+        ],
+      ),
     );
   }
 }
