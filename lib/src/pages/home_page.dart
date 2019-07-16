@@ -61,7 +61,6 @@ class HomePage extends StatelessWidget {
           StreamBuilder(
             stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-              print("Entrooo");
               if (snapshot.hasData) {
                 return MovieHorizontal(
                   peliculas: snapshot.data,
