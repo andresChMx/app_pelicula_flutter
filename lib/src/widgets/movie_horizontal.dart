@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 
 class MovieHorizontal extends StatelessWidget {
   final List<Pelicula> peliculas;
-  MovieHorizontal({@required this.peliculas});
+  final Function siguientePagina;
+  final _pageController=new PageController(
+    initialPage: 1,
+    viewportFraction: 0.3
+  );
+  MovieHorizontal({@required this.peliculas,@required this.siguientePagina});
   @override
   Widget build(BuildContext context) {
     final Size _screenSize = MediaQuery.of(context).size;
+
+    _pageController.addListener((){
+      if(_pageController.position.pixels>=_pageController.position.maxScrollExtent-200){
+        siguientePagina();
+      }
+    });
     return Container(
         height: (MediaQuery.of(context).size.height * 0.5) - 200.0,
         child: PageView(
           pageSnapping: false,
-          controller: PageController(
-            initialPage: 1,
-            viewportFraction: 0.3,
-          ),
+          controller:_pageController,
           children: _tarjetas(context),
         ));
   }
