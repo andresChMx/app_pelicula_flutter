@@ -58,6 +58,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text("Populares", style: Theme.of(context).textTheme.subhead),
+          SizedBox(height:20.0,),
           StreamBuilder(
             stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
