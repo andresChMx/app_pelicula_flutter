@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:app_pelicula_seccion7/src/models/actores_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:app_pelicula_seccion7/src/models/pelicula_model.dart';
@@ -8,7 +9,7 @@ import 'package:app_pelicula_seccion7/src/models/pelicula_model.dart';
 class PeliculasProvider{
   String _apikey="edd945b7ba2974a33ebbb8ee0bce990f";
   String _url="api.themoviedb.org";
-  String _languaje="es-ES";
+  String _language="es-ES";
 
   int _popularesPage=0;
 
@@ -35,7 +36,7 @@ class PeliculasProvider{
   Future<List<Pelicula>> getEnCines() async{
     final url=Uri.https(_url,"3/movie/now_playing",{
       'api_key' :_apikey,
-      'languaje':_languaje  
+      'languaje':_language  
     });
     return _procesarRespuesta(url);
 
@@ -47,7 +48,7 @@ class PeliculasProvider{
     this._popularesPage++;
     final url=Uri.https(_url,"3/movie/popular",{
       'api_key' :_apikey,
-      'languaje':_languaje,
+      'languaje':_language,
       'page':this._popularesPage.toString()  
     });
     final resp=await _procesarRespuesta(url);
@@ -55,5 +56,15 @@ class PeliculasProvider{
     popularesSink(_populares);
     _cargando=false;
     return resp;
+  }
+  Future<List<Actor>> getCast(String peliId) async{
+    final url=Uri.https(_url, '3/movie/$peliId/credits',{
+      'api_key':_apikey,
+      'language':_language
+    });
+    final resp= await http.get(url);
+    final decodedData=json.decode(resp.body);
+    final cast=new Cast.fromJsonList(decodedData['cast']);
+    return cast.actores;
   }
 }
