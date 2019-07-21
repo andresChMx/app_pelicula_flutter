@@ -65,5 +65,12 @@ class Pelicula {
     }
 
   }
+  getBackgroundImg(){
+    if(posterPath==null){
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/1024px-Imagen_no_disponible.svg.png";
+    }else{
+      return "https://image.tmdb.org/t/p/w500/$backdropPath";
+    }
+  }
 }
 
