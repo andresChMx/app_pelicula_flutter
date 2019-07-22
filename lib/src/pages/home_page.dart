@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _swiperTarjetas() {
-    return FutureBuilder(
+    Widget tmp= FutureBuilder(
       future: peliculasProvider.getEnCines(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
@@ -48,6 +48,7 @@ class HomePage extends StatelessWidget {
         }
       },
     );
+    return tmp;
   }
 
   Widget _footer(BuildContext context) {

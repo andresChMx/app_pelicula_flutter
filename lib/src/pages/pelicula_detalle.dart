@@ -50,8 +50,8 @@ class PeliculaDetalle extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Hero(
-            tag: pelicula.id,
-                      child: ClipRRect(
+            tag: pelicula.uniqueId,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Image(
                   image: NetworkImage(pelicula.getPostImg()), height: 150.0),
@@ -114,7 +114,7 @@ class PeliculaDetalle extends StatelessWidget {
 
   Widget _crearActoresPageView(List<Actor> actores) {
     return SizedBox(
-      height:250.0,
+      height: 250.0,
       child: PageView.builder(
         pageSnapping: false,
         itemCount: actores.length,
@@ -133,7 +133,7 @@ class PeliculaDetalle extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
           child: FadeInImage(
-            height:200.0,
+            height: 200.0,
             fit: BoxFit.cover,
             image: NetworkImage(actor.getFoto()),
             placeholder: AssetImage("assets/img/no-image.jpg"),
